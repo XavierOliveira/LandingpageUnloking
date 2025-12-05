@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sales Consulting | Transformação Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                blue: '#9ca3af', // Gray-400
+                lightBlue: '#e5e7eb', // Gray-200
+                darkBlue: '#131B27', // Keep dark bg
+                black: '#000000',
+              }
+            },
+            backgroundImage: {
+              'brand-gradient': 'linear-gradient(135deg, #4b5563 0%, #111827 100%)',
+              'blue-glow-radial': 'radial-gradient(circle, rgba(156, 163, 175, 0.3) 0%, rgba(0, 0, 0, 0) 70%)', // Gray glow
+              'metallic': 'linear-gradient(135deg, #4b5563 0%, #9ca3af 50%, #4b5563 100%)', // Gray metallic
+              'metallic-hover': 'linear-gradient(135deg, #6b7280 0%, #d1d5db 50%, #6b7280 100%)',
+              'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 6s ease-in-out infinite',
+              'glow': 'glow 3s ease-in-out infinite alternate',
+              'spin-slow': 'spin 12s linear infinite',
+              'shimmer': 'shimmer 3s infinite',
+              'scroll': 'scroll 30s linear infinite',
+              'pop-interval': 'pop-interval 5s ease-in-out infinite',
+            },
+            transitionTimingFunction: {
+              'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              glow: {
+                '0%': { boxShadow: '0 0 20px rgba(156, 163, 175, 0.2)' }, // Gray shadow
+                '100%': { boxShadow: '0 0 40px rgba(156, 163, 175, 0.6)' }
+              },
+              shimmer: {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(100%)' }
+              },
+              scroll: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' }
+              },
+              'pop-interval': {
+                '0%, 90%': { transform: 'scale(1)' },
+                '95%': { transform: 'scale(1.05)' },
+                '100%': { transform: 'scale(1)' }
+              },
+              'rotate-slow': {
+                '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+                '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' }
+              },
+              'pulse-mega': {
+                '0%, 100%': { transform: 'translate(-50%, -50%) scale(1)', opacity: '0.8' },
+                '50%': { transform: 'translate(-50%, -50%) scale(1.15)', opacity: '0.4' }
+              },
+              'draw-width': {
+                '0%': { width: '0' },
+                '100%': { width: '100%' }
+              },
+              'draw-height': {
+                '0%': { height: '0' },
+                '100%': { height: 'var(--target-height)' }
+              },
+              'float-particle': {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' }
+              },
+              'dash': {
+                to: { 'stroke-dashoffset': '0' }
+              },
+              'pulse-ring': {
+                '0%': { boxShadow: '0 0 0 0 rgba(156, 163, 175, 0.4)' },
+                '70%': { boxShadow: '0 0 0 20px rgba(156, 163, 175, 0)' },
+                '100%': { boxShadow: '0 0 0 0 rgba(156, 163, 175, 0)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+      body {
+        background-color: #000000;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+      .glass-card {
+        background: rgba(19, 27, 39, 0.4);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(156, 163, 175, 0.1);
+      }
+      .glass-card-hover:hover {
+        border-color: rgba(156, 163, 175, 0.4);
+        box-shadow: 0 0 30px rgba(156, 163, 175, 0.2);
+        transform: translateY(-5px);
+      }
+      .text-glow {
+        text-shadow: 0 0 20px rgba(156, 163, 175, 0.5);
+      }
+      .stroke-dash-500 {
+        stroke-dasharray: 500;
+        stroke-dashoffset: 500;
+      }
+      .scroll-progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #9ca3af 0%, #e5e7eb 100%);
+        z-index: 9999;
+        transform-origin: 0%;
+      }
+      :root {
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      
+      @keyframes drawLineSeq {
+        0% { stroke-dashoffset: 1000; opacity: 0; }
+        1% { opacity: 1; }
+        20% { stroke-dashoffset: 0; opacity: 1; }
+        85% { opacity: 1; }
+        95% { opacity: 0; }
+        100% { opacity: 0; stroke-dashoffset: 1000; }
+      }
+
+      .seq-line {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: drawLineSeq 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #4b5563;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #9ca3af;
+      }
+      
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/"
+  }
+}
+</script>
+</head>
+  <body>
+    <!-- Hidden SVG for global gradients -->
+    <svg width="0" height="0" style="position: absolute; visibility: hidden;">
+      <defs>
+        <linearGradient id="metallic-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#4b5563" />
+          <stop offset="50%" stop-color="#9ca3af" />
+          <stop offset="100%" stop-color="#4b5563" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div id="root"></div>
+  </body>
+</html>
