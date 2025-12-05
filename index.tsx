@@ -402,22 +402,93 @@ const App = () => {
         )}
       </nav>
 
-      {/* 1. HERO SECTION - ONYX STYLE */}
+      {/* 1. HERO SECTION - SALES DASHBOARD STYLE */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden min-h-screen flex items-center justify-center bg-brand-black/90">
         <div className="absolute inset-0 bg-noise opacity-20 pointer-events-none mix-blend-overlay" />
-        <div className="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-gray-900/20 to-transparent pointer-events-none z-0" />
-        
-        {/* Spotlight */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gray-500/10 blur-[100px] rounded-full pointer-events-none z-0" />
 
-        {/* Dark Glossy Sphere */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full z-0 pointer-events-none opacity-80"
+        {/* Grid Background */}
+        <div className="absolute inset-0 opacity-[0.03]"
              style={{
-               background: 'radial-gradient(circle at 30% 30%, #374151, #000)',
-               boxShadow: 'inset -20px -20px 50px rgba(0,0,0,0.8), inset 20px 20px 50px rgba(255,255,255,0.05), 0 0 100px rgba(156,163,175,0.1)',
-               transform: `translate(calc(-50% + ${mousePos.x * 0.01}px), calc(-50% + ${mousePos.y * 0.01}px))` 
+               backgroundImage: 'linear-gradient(rgba(156, 163, 175, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(156, 163, 175, 0.5) 1px, transparent 1px)',
+               backgroundSize: '50px 50px'
              }}
         />
+
+        {/* Animated Growth Chart Lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none z-0" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+          <defs>
+            <linearGradient id="chartGradient1" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#9ca3af" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#9ca3af" stopOpacity="0.8" />
+            </linearGradient>
+            <linearGradient id="chartGradient2" x1="0%" y1="100%" x2="100%" y2="10%">
+              <stop offset="0%" stopColor="#6b7280" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#9ca3af" stopOpacity="0.6" />
+            </linearGradient>
+          </defs>
+
+          {/* Growth Line 1 - Aggressive uptrend */}
+          <path
+            d="M 0 900 Q 200 850, 300 700 T 500 500 T 700 300 T 900 100"
+            fill="none"
+            stroke="url(#chartGradient1)"
+            strokeWidth="3"
+            className="animate-[dash_3s_ease-out_infinite] stroke-dash-500"
+          />
+
+          {/* Growth Line 2 - Secondary trend */}
+          <path
+            d="M 0 950 Q 250 900, 350 800 T 550 650 T 750 450 T 950 250"
+            fill="none"
+            stroke="url(#chartGradient2)"
+            strokeWidth="2"
+            className="animate-[dash_3s_ease-out_infinite] stroke-dash-500"
+            style={{animationDelay: '1s'}}
+          />
+
+          {/* Area under curve */}
+          <path
+            d="M 0 900 Q 200 850, 300 700 T 500 500 T 700 300 T 900 100 L 1000 1000 L 0 1000 Z"
+            fill="url(#chartGradient1)"
+            opacity="0.05"
+          />
+        </svg>
+
+        {/* Floating Metrics Cards */}
+        <div className="absolute top-[15%] left-[10%] opacity-60 animate-float z-0 hidden md:block"
+             style={{animationDelay: '0s', animationDuration: '6s'}}>
+          <div className="bg-gray-800/40 backdrop-blur-md border border-gray-600/30 rounded-lg px-4 py-3 shadow-lg">
+            <div className="text-xs text-gray-400 mb-1">Conversão</div>
+            <div className="text-2xl font-bold text-gray-200 flex items-center gap-2">
+              +32%
+              <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M12 7a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-2 0V9.414l-3.293 3.293a1 1 0 01-1.414 0L8 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0L12 10.586 14.586 8H13a1 1 0 01-1-1z" clipRule="evenodd" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute top-[60%] right-[8%] opacity-60 animate-float z-0 hidden md:block"
+             style={{animationDelay: '1s', animationDuration: '7s'}}>
+          <div className="bg-gray-800/40 backdrop-blur-md border border-gray-600/30 rounded-lg px-4 py-3 shadow-lg">
+            <div className="text-xs text-gray-400 mb-1">Revenue</div>
+            <div className="text-2xl font-bold text-gray-200">€48K</div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-[25%] left-[15%] opacity-60 animate-float z-0 hidden lg:block"
+             style={{animationDelay: '2s', animationDuration: '8s'}}>
+          <div className="bg-gray-800/40 backdrop-blur-md border border-gray-600/30 rounded-lg px-4 py-3 shadow-lg">
+            <div className="text-xs text-gray-400 mb-1">Leads</div>
+            <div className="text-2xl font-bold text-gray-200 flex items-center gap-2">
+              1,247
+              <span className="text-xs text-gray-400">+18%</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Central Glow Effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-gray-500/10 via-transparent to-transparent blur-3xl pointer-events-none z-0 animate-pulse-slow" />
 
         <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
           <RevealOnScroll delay={0}>
